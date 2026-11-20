@@ -1,0 +1,131 @@
+{
+  "schema": "codeasmem.repository_validation.v1",
+  "passed": true,
+  "unit_and_gpu_tests": {
+    "command": "python -m pytest -q",
+    "passed": 12,
+    "failed": 0
+  },
+  "actual_dataset_checks": [
+    {
+      "name": "real_data_catalog",
+      "passed": true
+    },
+    {
+      "name": "quality_is_explicit",
+      "passed": true
+    },
+    {
+      "name": "cp2077_source_pts",
+      "passed": true
+    },
+    {
+      "name": "cp2077_world_tracks",
+      "passed": true
+    },
+    {
+      "name": "cp2077_dynamics_preparation",
+      "passed": true
+    },
+    {
+      "name": "cp2077_renderer_preparation",
+      "passed": true
+    },
+    {
+      "name": "gta5_source_pts",
+      "passed": true
+    },
+    {
+      "name": "gta5_world_tracks",
+      "passed": true
+    },
+    {
+      "name": "gta5_dynamics_preparation",
+      "passed": true
+    },
+    {
+      "name": "gta5_renderer_preparation",
+      "passed": true
+    },
+    {
+      "name": "rdr2_source_pts",
+      "passed": true
+    },
+    {
+      "name": "rdr2_world_tracks",
+      "passed": true
+    },
+    {
+      "name": "rdr2_dynamics_preparation",
+      "passed": true
+    },
+    {
+      "name": "rdr2_renderer_preparation",
+      "passed": true
+    },
+    {
+      "name": "code_download_archive",
+      "passed": true
+    },
+    {
+      "name": "web_code_download_archive",
+      "passed": true
+    },
+    {
+      "name": "browser_live_counts",
+      "passed": true
+    },
+    {
+      "name": "cp2077_browser_decodes",
+      "passed": true
+    },
+    {
+      "name": "gta5_browser_decodes",
+      "passed": true
+    },
+    {
+      "name": "rdr2_browser_decodes",
+      "passed": true
+    },
+    {
+      "name": "method_desktop_layout",
+      "passed": true
+    },
+    {
+      "name": "training_desktop_layout",
+      "passed": true
+    },
+    {
+      "name": "quality_desktop_layout",
+      "passed": true
+    },
+    {
+      "name": "dynamic_quality_table",
+      "passed": true
+    },
+    {
+      "name": "browse_mobile_layout",
+      "passed": true
+    },
+    {
+      "name": "method_mobile_layout",
+      "passed": true
+    },
+    {
+      "name": "training_mobile_layout",
+      "passed": true
+    },
+    {
+      "name": "quality_mobile_layout",
+      "passed": true
+    },
+    {
+      "name": "no_browser_errors",
+      "passed": true
+    }
+  ],
+  "actual_dataset_checks_passed": 29,
+  "raw_data_uploaded": false,
+  "model_trained": false,
+  "note": "Real 305-episode local data reconnected to portable repository build; original local service kept unchanged."
+}

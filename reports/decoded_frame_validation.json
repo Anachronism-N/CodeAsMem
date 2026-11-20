@@ -1,0 +1,336 @@
+{
+  "passed": true,
+  "method": "Browser canvas vs OpenCV adjacent decoded frames; RGB and white, first/middle/last for all three games",
+  "checks": [
+    {
+      "game": "cp2077",
+      "channel": "rgb",
+      "requested_frame": 0,
+      "closest_decoded_frame": 0,
+      "mae": 1.4754425287246704,
+      "candidates": [
+        [
+          1.4754425287246704,
+          0
+        ],
+        [
+          1.585281491279602,
+          1
+        ]
+      ]
+    },
+    {
+      "game": "cp2077",
+      "channel": "white",
+      "requested_frame": 0,
+      "closest_decoded_frame": 0,
+      "mae": 0.36645206809043884,
+      "candidates": [
+        [
+          0.36645206809043884,
+          0
+        ],
+        [
+          0.5570947527885437,
+          1
+        ]
+      ]
+    },
+    {
+      "game": "cp2077",
+      "channel": "rgb",
+      "requested_frame": 100,
+      "closest_decoded_frame": 100,
+      "mae": 2.11443829536438,
+      "candidates": [
+        [
+          2.11443829536438,
+          100
+        ],
+        [
+          24.343778610229492,
+          101
+        ],
+        [
+          25.13861656188965,
+          99
+        ]
+      ]
+    },
+    {
+      "game": "cp2077",
+      "channel": "white",
+      "requested_frame": 100,
+      "closest_decoded_frame": 100,
+      "mae": 0.34988266229629517,
+      "candidates": [
+        [
+          0.34988266229629517,
+          100
+        ],
+        [
+          0.8545966744422913,
+          101
+        ],
+        [
+          0.8788017630577087,
+          99
+        ]
+      ]
+    },
+    {
+      "game": "cp2077",
+      "channel": "rgb",
+      "requested_frame": 299,
+      "closest_decoded_frame": 299,
+      "mae": 1.458364725112915,
+      "candidates": [
+        [
+          1.458364725112915,
+          299
+        ],
+        [
+          1.9118642807006836,
+          298
+        ]
+      ]
+    },
+    {
+      "game": "cp2077",
+      "channel": "white",
+      "requested_frame": 299,
+      "closest_decoded_frame": 299,
+      "mae": 0.37835970520973206,
+      "candidates": [
+        [
+          0.37835970520973206,
+          299
+        ],
+        [
+          0.614205539226532,
+          298
+        ]
+      ]
+    },
+    {
+      "game": "gta5",
+      "channel": "rgb",
+      "requested_frame": 0,
+      "closest_decoded_frame": 0,
+      "mae": 0.9775543212890625,
+      "candidates": [
+        [
+          0.9775543212890625,
+          0
+        ],
+        [
+          5.966055870056152,
+          1
+        ]
+      ]
+    },
+    {
+      "game": "gta5",
+      "channel": "white",
+      "requested_frame": 0,
+      "closest_decoded_frame": 0,
+      "mae": 0.2921207845211029,
+      "candidates": [
+        [
+          0.2921207845211029,
+          0
+        ],
+        [
+          2.5111238956451416,
+          1
+        ]
+      ]
+    },
+    {
+      "game": "gta5",
+      "channel": "rgb",
+      "requested_frame": 100,
+      "closest_decoded_frame": 100,
+      "mae": 1.006050705909729,
+      "candidates": [
+        [
+          1.006050705909729,
+          100
+        ],
+        [
+          10.964287757873535,
+          101
+        ],
+        [
+          10.964990615844727,
+          99
+        ]
+      ]
+    },
+    {
+      "game": "gta5",
+      "channel": "white",
+      "requested_frame": 100,
+      "closest_decoded_frame": 100,
+      "mae": 0.32047325372695923,
+      "candidates": [
+        [
+          0.32047325372695923,
+          100
+        ],
+        [
+          16.388660430908203,
+          101
+        ],
+        [
+          16.52052879333496,
+          99
+        ]
+      ]
+    },
+    {
+      "game": "gta5",
+      "channel": "rgb",
+      "requested_frame": 131,
+      "closest_decoded_frame": 131,
+      "mae": 1.078070044517517,
+      "candidates": [
+        [
+          1.078070044517517,
+          131
+        ],
+        [
+          5.953338623046875,
+          130
+        ]
+      ]
+    },
+    {
+      "game": "gta5",
+      "channel": "white",
+      "requested_frame": 131,
+      "closest_decoded_frame": 131,
+      "mae": 0.3674246072769165,
+      "candidates": [
+        [
+          0.3674246072769165,
+          131
+        ],
+        [
+          3.3840019702911377,
+          130
+        ]
+      ]
+    },
+    {
+      "game": "rdr2",
+      "channel": "rgb",
+      "requested_frame": 0,
+      "closest_decoded_frame": 0,
+      "mae": 1.0085233449935913,
+      "candidates": [
+        [
+          1.0085233449935913,
+          0
+        ],
+        [
+          19.37668800354004,
+          1
+        ]
+      ]
+    },
+    {
+      "game": "rdr2",
+      "channel": "white",
+      "requested_frame": 0,
+      "closest_decoded_frame": 0,
+      "mae": 0.38319429755210876,
+      "candidates": [
+        [
+          0.38319429755210876,
+          0
+        ],
+        [
+          3.901270627975464,
+          1
+        ]
+      ]
+    },
+    {
+      "game": "rdr2",
+      "channel": "rgb",
+      "requested_frame": 100,
+      "closest_decoded_frame": 100,
+      "mae": 1.3123414516448975,
+      "candidates": [
+        [
+          1.3123414516448975,
+          100
+        ],
+        [
+          21.3154296875,
+          99
+        ],
+        [
+          21.417367935180664,
+          101
+        ]
+      ]
+    },
+    {
+      "game": "rdr2",
+      "channel": "white",
+      "requested_frame": 100,
+      "closest_decoded_frame": 100,
+      "mae": 0.15148775279521942,
+      "candidates": [
+        [
+          0.15148775279521942,
+          100
+        ],
+        [
+          0.41974103450775146,
+          99
+        ],
+        [
+          0.4556769132614136,
+          101
+        ]
+      ]
+    },
+    {
+      "game": "rdr2",
+      "channel": "rgb",
+      "requested_frame": 298,
+      "closest_decoded_frame": 298,
+      "mae": 0.9534172415733337,
+      "candidates": [
+        [
+          0.9534172415733337,
+          298
+        ],
+        [
+          15.794023513793945,
+          297
+        ]
+      ]
+    },
+    {
+      "game": "rdr2",
+      "channel": "white",
+      "requested_frame": 298,
+      "closest_decoded_frame": 298,
+      "mae": 0.44745853543281555,
+      "candidates": [
+        [
+          0.44745853543281555,
+          298
+        ],
+        [
+          3.780550718307495,
+          297
+        ]
+      ]
+    }
+  ]
+}

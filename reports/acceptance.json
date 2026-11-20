@@ -1,0 +1,353 @@
+{
+  "url": "http://127.0.0.1:8877",
+  "checks": [
+    {
+      "name": "catalog_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_case_files",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual_source_cp",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual_source_gta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual_source_rdr",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual_source_camera",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual_source_renderer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual_source_tracks",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual_source_runtime",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual_source_loader",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cp2077_time_join",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cp2077_primary_tracks",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cp2077_buffer_query",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cp2077_rgb_range",
+      "passed": true,
+      "detail": "bytes 0-1023/30098866"
+    },
+    {
+      "name": "cp2077_white_range",
+      "passed": true,
+      "detail": "bytes 0-1023/130464"
+    },
+    {
+      "name": "cp2077_control_range",
+      "passed": true,
+      "detail": "bytes 0-1023/130464"
+    },
+    {
+      "name": "cp2077_dynamics_window",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cp2077_causal_input_isolation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cp2077_renderer_window",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cp2077_known_proxy_condition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cp2077_invalid_window_rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gta5_time_join",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gta5_primary_tracks",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gta5_buffer_query",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gta5_rgb_range",
+      "passed": true,
+      "detail": "bytes 0-1023/11319850"
+    },
+    {
+      "name": "gta5_white_range",
+      "passed": true,
+      "detail": "bytes 0-1023/240013"
+    },
+    {
+      "name": "gta5_control_range",
+      "passed": true,
+      "detail": "bytes 0-1023/247113"
+    },
+    {
+      "name": "gta5_dynamics_window",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gta5_causal_input_isolation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gta5_renderer_window",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gta5_known_proxy_condition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gta5_invalid_window_rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rdr2_time_join",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rdr2_primary_tracks",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rdr2_buffer_query",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rdr2_rgb_range",
+      "passed": true,
+      "detail": "bytes 0-1023/75508835"
+    },
+    {
+      "name": "rdr2_white_range",
+      "passed": true,
+      "detail": "bytes 0-1023/406267"
+    },
+    {
+      "name": "rdr2_control_range",
+      "passed": true,
+      "detail": "bytes 0-1023/414694"
+    },
+    {
+      "name": "rdr2_dynamics_window",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rdr2_causal_input_isolation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rdr2_renderer_window",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rdr2_known_proxy_condition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rdr2_invalid_window_rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "review_round_trip",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "browser_catalog",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cp2077_browser_video_decode",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cp2077_browser_frame_seek",
+      "passed": true,
+      "detail": {
+        "frame": 100,
+        "rgb": 3.35696,
+        "white": 3.338569,
+        "sourceTarget": 3.3569603,
+        "proxyTarget": 3.3385695846153847
+      }
+    },
+    {
+      "name": "cp2077_switch_actor_layer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gta5_browser_video_decode",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gta5_browser_frame_seek",
+      "passed": true,
+      "detail": {
+        "frame": 100,
+        "rgb": 4.172916,
+        "white": 4.172916,
+        "sourceTarget": 4.17291605,
+        "proxyTarget": 4.172916411832061
+      }
+    },
+    {
+      "name": "gta5_switch_actor_layer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rdr2_browser_video_decode",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rdr2_browser_frame_seek",
+      "passed": true,
+      "detail": {
+        "frame": 100,
+        "rgb": 3.3551,
+        "white": 3.349647,
+        "sourceTarget": 3.3551,
+        "proxyTarget": 3.3496478187919467
+      }
+    },
+    {
+      "name": "rdr2_switch_actor_layer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "playback_advances",
+      "passed": true,
+      "detail": 37
+    },
+    {
+      "name": "browser_recipe_download",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "desktop_no_overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "mobile_browse_no_overflow",
+      "passed": true,
+      "detail": {
+        "scroll": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "mobile_method_no_overflow",
+      "passed": true,
+      "detail": {
+        "scroll": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "mobile_training_no_overflow",
+      "passed": true,
+      "detail": {
+        "scroll": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "mobile_quality_no_overflow",
+      "passed": true,
+      "detail": {
+        "scroll": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "no_browser_javascript_errors",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "no_browser_http_errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "browser_errors": [],
+  "http_errors": [],
+  "passed": true
+}

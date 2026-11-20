@@ -1,0 +1,44 @@
+{
+  "schema": "worldbridge.training_window.v1",
+  "task": "dynamics",
+  "game": "cp2077",
+  "case_id": "oos_train_20261111_run01_attempt003_001",
+  "episode": "../data/unified_worlds/cp2077/oos_train_20261111_run01_attempt003_001",
+  "context": {
+    "start": 0,
+    "end_inclusive": 67
+  },
+  "target": {
+    "start": 68,
+    "end_inclusive": 299
+  },
+  "condition": "control",
+  "student_inputs": [
+    "past_rgb_or_estimated_state",
+    "past_time_us"
+  ],
+  "target_only": [
+    "future_world_points",
+    "future_joint_valid",
+    "future_rgb"
+  ],
+  "excluded_student_inputs": [
+    "future_entity_state",
+    "future_velocity",
+    "future_events",
+    "future_teacher_views",
+    "future_ground_truth_proxy"
+  ],
+  "future_camera_policy": "separate_known_camera_condition_or_predict_it_explicitly",
+  "alignment": "frame_index; native time_us for dynamics",
+  "mask_policy": "valid & finite; proxy covered is not native visibility",
+  "split_policy": "group_by_scene_identity_capture_session_before_windowing",
+  "split": "unassigned",
+  "source_training_eligibility": null,
+  "visual_review": {
+    "status": "pending"
+  },
+  "training_ready": false,
+  "approval_required_before_training": "data_quality_review_and_split_assignment",
+  "note": "窗口定义与数据准备配置；未训练模型。动力学输入与标签在 prepare_window.py 中分文件输出。"
+}

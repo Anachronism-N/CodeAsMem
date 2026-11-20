@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorldBridge normalized frame",
+  "type": "object",
+  "required": ["index", "time_us", "source_frame_id", "cameras", "entities"],
+  "properties": {
+    "index": {"type": "integer", "minimum": 0},
+    "time_us": {"type": "integer", "minimum": 0},
+    "source_frame_id": {"type": "string"},
+    "cameras": {
+      "type": "object", "required": ["main"],
+      "additionalProperties": {"$ref": "#/$defs/camera"}
+    },
+    "entities": {"type": "array", "items": {"$ref": "#/$defs/entity"}}
+  },
+  "$defs": {
+    "vec3": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}},
+    "mat4": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number"}}},
+    "camera": {
+      "type": "object", "required": ["view", "projection", "resolution", "provenance", "source_video_frame"],
+      "properties": {"view": {"$ref": "#/$defs/mat4"}, "projection": {"$ref": "#/$defs/mat4"},
+        "resolution": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 1}},
+        "source_video_frame": {"type": "integer", "minimum": 0}, "provenance": {"type": "string"}}
+    },
+    "entity": {
+      "type": "object", "required": ["instance_id", "transform", "present", "velocity", "state"],
+      "properties": {"instance_id": {"type": "integer", "minimum": 1}, "transform": {"$ref": "#/$defs/mat4"},
+        "present": {"type": "boolean"}, "velocity": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/vec3"}]},
+        "state": {"type": "object"}, "joints": {"type": "object", "additionalProperties": {"$ref": "#/$defs/vec3"}}}
+    }
+  }
+}

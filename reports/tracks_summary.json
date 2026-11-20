@@ -1,0 +1,20 @@
+{
+  "cp2077": {
+    "episodes": 50,
+    "frames": 15003,
+    "point_records": 3840768,
+    "track_only_entities": 0
+  },
+  "gta5": {
+    "episodes": 79,
+    "frames": 10756,
+    "point_records": 2753536,
+    "track_only_entities": 0
+  },
+  "rdr2": {
+    "episodes": 176,
+    "frames": 52650,
+    "point_records": 13824400,
+    "track_only_entities": 1906
+  }
+}

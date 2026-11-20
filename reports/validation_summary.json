@@ -1,0 +1,29 @@
+{
+  "schema": "worldbridge.batch_validation.v1",
+  "episodes": 305,
+  "games": {
+    "cp2077": {
+      "episodes": 50,
+      "frames": 15003,
+      "proxy_videos": 200,
+      "failed_checks": 0
+    },
+    "gta5": {
+      "episodes": 79,
+      "frames": 10756,
+      "proxy_videos": 316,
+      "failed_checks": 0
+    },
+    "rdr2": {
+      "episodes": 176,
+      "frames": 52650,
+      "proxy_videos": 704,
+      "failed_checks": 0
+    }
+  },
+  "structural_failures": 0,
+  "visual_quality_approval_inferred": false,
+  "source_data_modified": false,
+  "scope": "all normalized frame streams; all unified 3D tracks and masks; all buffer headers/timestamps; first depth/ID frame per episode; source main video metadata",
+  "report_kind": "aggregate_snapshot_not_a_portable_case_manifest"
+}

@@ -1,0 +1,10 @@
+{
+  "episodes": 305,
+  "pairs": 1220,
+  "rendered_pairs": 305,
+  "games": {
+    "cp2077": 50,
+    "gta5": 79,
+    "rdr2": 176
+  }
+}

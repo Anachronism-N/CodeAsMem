@@ -1,0 +1,13 @@
+{
+  "datasets": {
+    "cp2077": "D:/datasets/cp2077/batch",
+    "gta5": "D:/datasets/gta5",
+    "rdr2": "D:/datasets/rdr2"
+  },
+  "output": "../data/unified_worlds",
+  "render": {
+    "width": 384,
+    "height": 216,
+    "views": ["main"]
+  }
+}

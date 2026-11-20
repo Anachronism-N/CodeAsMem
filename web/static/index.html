@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>WorldBridge · 本地研究工作台</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%2358dfbc' d='m16 2 13 7v14l-13 7L3 23V9zm0 3L6 10l10 6 10-6zm-10 8v8l9 5V18zm11 5v8l9-5v-8z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+  <script defer src="/app.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#browse" aria-label="WorldBridge 首页"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3 32 11v15L18 34 4 26V11Z M4 11l14 8 14-8M18 19v15M11 7l14 8v15"/></svg><span>WorldBridge<small>代码世界 → 动态记忆</small></span></a>
+  <nav class="main-nav" aria-label="工作台导航">
+    <button class="nav active" data-page="browse">案例浏览</button>
+    <button class="nav" data-page="method">实现过程</button>
+    <button class="nav" data-page="training">训练准备</button>
+    <button class="nav" data-page="quality">数据与验证</button>
+  </nav>
+  <span class="local-badge"><i></i> 仅在本机 · 数据未上传</span>
+</header>
+<main>
+  <section class="intro"><div><p class="eyebrow">LOCAL RESEARCH WORKSPACE / 三游戏统一数据</p><h1>让画外世界，继续演化。</h1><p>查看统一后的游戏状态、三维轨迹与渲染代理，准备可检验的动态记忆训练。</p></div><div class="stage-pill"><span>当前阶段</span><strong>数据与代理已生成</strong><small>尚未训练视频模型</small></div></section>
+  <div class="stats" id="stats" aria-live="polite"><div class="stat"><small>正在读取本地数据</small><strong>…</strong></div></div>
+
+  <section id="page-browse" class="page active">
+    <div class="browser-layout">
+      <aside class="catalog panel">
+        <div class="catalog-head"><h2>案例库 <span id="case-count">…</span></h2><input id="search" type="search" placeholder="搜索案例 / 场景" aria-label="搜索案例或场景"></div>
+        <div class="game-filters" role="group" aria-label="筛选游戏"><button class="active" data-game="all">全部</button><button data-game="cp2077">CP2077</button><button data-game="gta5">GTA V</button><button data-game="rdr2">RDR2</button></div>
+        <div id="case-list" class="case-list" aria-label="案例列表"></div>
+        <div class="catalog-foot">主视角代理已渲染；其他视角保留相机与 RGB 索引。</div>
+      </aside>
+      <div class="case-body">
+        <div class="case-title"><div><p class="eyebrow" id="case-game">正在加载</p><h2 id="case-title">选择案例</h2><p id="case-subtitle" class="muted"></p></div><span class="badge amber" id="case-review-badge">待视觉复核</span></div>
+        <div id="case-warning" class="notice"></div>
+        <div class="viewer-grid">
+          <article class="video-card"><div class="card-top"><h3>原始 RGB</h3><span class="tag">本地源视频</span></div><div class="video-wrap"><video id="video-rgb" muted playsinline preload="metadata"></video><span class="video-corner">主视角 / RGB</span></div></article>
+          <article class="video-card"><div class="card-top"><h3>几何白模</h3><span class="tag">完整 z-buffer</span></div><div class="video-wrap"><video id="video-white" muted playsinline preload="metadata"></video><span class="video-corner">OpenGL / 384 × 216</span></div></article>
+          <article class="video-card"><div class="card-top"><label for="channel">条件代理</label><select id="channel"><option value="control">动态优先 control</option><option value="actors">独立动态 actors</option><option value="semantic">语义 semantic</option></select></div><div class="video-wrap"><video id="video-proxy" muted playsinline preload="metadata"></video><span class="video-corner" id="channel-note">动态层覆盖静态代理</span></div></article>
+        </div>
+        <div class="transport panel"><div class="transport-buttons"><button id="play" class="primary" aria-label="播放或暂停">▶ 播放</button><button id="prev" title="上一帧（←）" aria-label="上一帧">←</button><button id="next" title="下一帧（→）" aria-label="下一帧">→</button><span id="frame-label" class="mono">F 000 / 000</span><span id="time-label" class="muted mono">0.000 s</span><span id="sync-status" class="sync-note">按帧编号对齐</span></div><input id="frame-slider" type="range" min="0" max="299" value="0" aria-label="视频帧编号"><div id="segment-bar" class="segment-bar" title="视锥状态，不表示真实遮挡"></div><div class="timeline-legend"><span><i class="visible"></i>在视锥内</span><span><i class="partial"></i>部分</span><span><i class="oos"></i>画外</span><span id="segment-source"></span></div></div>
+        <div class="detail-grid">
+          <article class="panel trajectory-panel"><div class="card-top"><div><h3>世界轨迹 · XY 平面</h3><p class="muted small">局部世界坐标 / 米；亮点表示当前帧</p></div><span id="entity-count" class="tag"></span></div><canvas id="trajectory" aria-label="实体世界轨迹图"></canvas><div id="entity-legend" class="entity-legend"></div></article>
+          <article class="panel buffer-panel"><div class="card-top"><h3>无损缓冲检查</h3><select id="buffer-scope" aria-label="选择缓冲范围"><option value="full">完整几何</option><option value="actor">独立动态</option></select></div><div class="buffer-tabs"><button class="active" data-buffer="depth">深度</button><button data-buffer="instance">实例 ID</button><span id="buffer-frame" class="muted small"></span></div><img id="buffer-image" alt="当前帧代理缓冲，可点击读取像素数值"><div id="pixel-info" class="pixel-info">深度为相机 Z（米）；点击像素查看数值。</div><p class="small muted">深度仅为代理几何；颜色按当前帧 2–98% 分位显示。背景无覆盖，训练应使用原始 NPZ 数值。</p></article>
+        </div>
+        <div class="detail-grid bottom-grid">
+          <article class="panel info-panel"><div class="card-top"><h3>这个案例包含什么</h3><a id="download-episode" href="#" class="text-link">下载元数据 ↗</a></div><dl id="case-info" class="info-list"></dl><div class="download-row" id="case-downloads"></div></article>
+          <article class="panel review-panel"><div class="card-top"><h3>人工复核记录</h3><span class="tag">独立本地文件</span></div><p class="small muted">逐帧检查相机、目标身份、代理对齐与画外重现。标记只用于筛选，原始质量结论保持可追溯。</p><label class="sr-only" for="review-status">复核状态</label><select id="review-status"><option value="pending">待检查</option><option value="candidate">条件训练候选（已人工查看）</option><option value="repair">需要修复</option></select><label class="sr-only" for="review-note">复核备注</label><textarea id="review-note" placeholder="例如：F70–226 画外，返回位置对齐；粗略建筑遮挡需检查。" rows="3"></textarea><div class="review-actions"><button id="save-review" class="secondary">保存本地记录</button><span id="review-result" class="small muted" aria-live="polite"></span></div></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="page-method" class="page document-page">
+    <div class="section-head"><p class="eyebrow">IMPLEMENTATION / 已完成的工程链路</p><h2>统一的是世界接口，以及每条观测的含义。</h2><p>原来的游戏代码各有字段、相机和时间约定。适配器将可用信息转换成共同场景表示，再用同一渲染器产生训练条件。</p></div>
+    <div class="pipeline" aria-label="六阶段处理流程"><div><b>01</b><strong>读取原始交付</strong><small>视频 / 状态 / 相机 / 指令</small></div><span>→</span><div><b>02</b><strong>游戏适配器</strong><small>CP2077 / GTA5 / RDR2</small></div><span>→</span><div><b>03</b><strong>统一场景 IR</strong><small>实体 · 时间 · 坐标 · 事件</small></div><span>→</span><div><b>04</b><strong>重放与程序接口</strong><small>replay / advance</small></div><span>→</span><div><b>05</b><strong>OpenGL 代理</strong><small>图像 / 深度 / ID</small></div><span>→</span><div><b>06</b><strong>帧级训练配对</strong><small>RGB + 条件 + 有效掩码</small></div></div>
+    <div class="prose-grid"><article class="panel prose"><h3>1. 三个适配器，不执行未知源脚本</h3><p>读取交付文件中的数据、矩阵与编译好的几何数组。不同游戏的字段转换发生在 <code>adapters.py</code>。源文件留在 E 盘，输出写入 <code>unified_worlds</code>。</p><ul><li><b>赛博朋克：</b>使用原生 GPU 相机描述、目标骨骼和近邻实体边界。当前包缺少共享静态场景与原生深度。</li><li><b>GTA V：</b>主视频采用 capture sidecar 中实际下发的相机姿态。粗略大包围盒改用可用碰撞墙面和水平面；不确定边界以线框保留。</li><li><b>RDR2：</b>读取交付的最终渲染相机、粗略静态几何、骨骼轨迹及行为证据。附加环境轨迹以 <code>track_only</code> 保留。</li></ul></article><article class="panel prose"><h3>2. 统一 IR：够用的轻量 DSL</h3><p><code>worldbridge.scene.v1</code> 为每个案例提供同样的实体、相机、帧流与程序接口。当前采用结构化 JSON 和 NPZ，后续可增加高级行为操作。</p><ul><li><b>身份：</b><code>game / case / native_id</code> 命名空间，避免游戏间 ID 冲突。</li><li><b>时间：</b>相对 <code>time_us</code> 加源帧编号；保留真实采样间隔。</li><li><b>坐标：</b>首个主相机为局部原点，Z 向上，保留原生水平轴；游戏单位按米解释，尚未独立做尺度标定。</li><li><b>骨骼：</b>20 个可选规范关节；缺失值为 NaN + valid 掩码。缺少实体表示未知。</li><li><b>事件：</b>采集器下发命令与观测到的状态变化分别保存，不能把命令当作实际执行结果。</li></ul></article></div>
+    <div class="prose-grid"><article class="panel prose"><h3>3. 白模是结构条件，轨迹仍然保留</h3><p>原生 Windows OpenGL 通过 GPU 渲染。每帧同时输出颜色、浮点深度、实例 ID、类别 ID 和覆盖掩码。数值保存在无损 NPZ 中，MP4 方便查看。</p><div class="channel-table"><div><b>white</b><span>静态 + 动态几何的正常深度测试</span></div><div><b>semantic</b><span>相同几何，以语义类别着色</span></div><div><b>actors</b><span>独立动态层，用于检查目标运动</span></div><div><b>control</b><span>动态优先叠加，减轻粗静态几何误遮挡</span></div></div><p class="callout">control 中的可见实体不能作为真实可见性标签；covered 仅表示代理覆盖。单帧代理也无法保存全部画外状态，因此三维轨迹与程序状态必须同时保留。</p></article><article class="panel prose"><h3>4. 可重放，与可预测分别检验</h3><p><code>program.json</code> 提供统一入口。记录重放使用已采集的后续帧，可用于构建条件渲染训练数据。</p><p><code>ProgramWorld</code> 支持设置速度 / 状态与匀速推进。当前演示固定初始化姿态和相机，只从初始化状态推进位置。</p><p class="callout">当前没有恢复游戏原生 AI、复杂状态转移、碰撞或导航规则。要获得可泛化的画外演化，还需要训练动力学模块，或补充可执行的行为规则。</p><p>本机网页通过 FastAPI 读取现有结果，用帧编号对齐源 RGB 与 CFR 代理，按需加载轨迹和缓冲；没有将整套数据复制到网页目录。</p></article></div>
+    <article class="panel code-panel"><div class="card-top"><div><h3>查看实际实现</h3><p class="muted small">下面直接读取已交付的本地 Python 源文件。</p></div><select id="code-select" aria-label="选择实现代码"><option value="cp">CP2077 适配器</option><option value="gta">GTA5 适配器</option><option value="rdr">RDR2 适配器</option><option value="camera">相机标准化</option><option value="renderer">OpenGL 渲染</option><option value="tracks">轨迹导出</option><option value="runtime">程序推进</option><option value="loader">训练配对读取</option></select></div><p id="code-path" class="code-path"></p><pre><code id="actual-code">选择模块以读取源码</code></pre></article>
+  </section>
+
+  <section id="page-training" class="page document-page">
+    <div class="section-head"><p class="eyebrow">TRAINING / 从可用条件到可预测记忆</p><h2>先验证结构能控制生成，再验证画外状态能预测。</h2><p>统一数据和白模解决了监督接口；动态演化需要明确因果输入。下面是建议顺序，网页可导出具体案例的训练窗口。</p></div>
+    <div class="training-stages">
+      <article class="panel train-stage"><span class="step-number">A</span><h3>条件视频渲染</h3><p class="stage-question">给定轨迹，能否生成一致画面？</p><dl><dt>输入</dt><dd>历史 RGB / 外观条件 + 已知未来代理 + 相机</dd><dt>监督</dt><dd>对应未来 RGB</dd><dt>训练</dt><dd>先冻结基础视频模型与 VAE，训练代理编码器和条件适配层；使用该模型原有扩散或 flow 目标。</dd></dl><p class="small muted">本任务允许未来代理作为已知条件。适合先验证数据对齐与控制能力。</p></article>
+      <article class="panel train-stage"><span class="step-number">B</span><h3>画外动力学</h3><p class="stage-question">只看过去，能否继续演化？</p><dl><dt>输入</dt><dd>截止 t₀ 的 RGB，或另行标记的历史引擎状态</dd><dt>监督</dt><dd>t₀ 之后的世界点、关节、速度与身份</dd><dt>训练</dt><dd>预测状态 / 轨迹模块，渲染预测代理，再复用 A 的视频生成接口。</dd></dl><p class="small muted">未来真实状态、代理、行为事件及辅助视角仅作监督，不能进入学生输入。</p></article>
+      <article class="panel train-stage"><span class="step-number">C</span><h3>视频模型内部记忆</h3><p class="stage-question">记忆里是否仍能读出画外实体？</p><dl><dt>输入</dt><dd>历史视频 token + 持久对象 / 世界记忆 token</dd><dt>监督</dt><dd>不同时间和位置查询的 3D 状态及重现画面</dd><dt>训练</dt><dd>先加记忆读写模块与三维查询头，再逐步联合训练 B、A。</dd></dl><p class="small muted">这是后续研究阶段，当前工程尚未接入 D4RT 或视频模型权重。</p></article>
+    </div>
+    <article class="panel prose memory-explainer"><h3>关于“训练 KV 中的 K”</h3><p>K 是注意力寻址的一部分，V 提供被读取的内容。要把世界状态写入、随时间更新并从记忆读出，需要一起定义记忆 token、读写结构和监督目标。仅指定“训练 K”不足以确定实现，也不能据此认定已复现 D4RT。</p><div class="memory-flow"><span>历史 RGB</span><b>→</b><span>状态编码 / 记忆更新</span><b>→</b><span>未来状态查询</span><b>→</b><span>预测代理</span><b>→</b><span>视频生成</span></div><p class="small muted">建议先把显式世界状态作为可检查的中间监督；基础视频架构确定后，再明确 K/V 投影、记忆模块与哪些参数可训练。</p></article>
+    <div class="prose-grid"><article class="panel prose"><h3>先做什么，怎样评价</h3><ol><li><b>复核 10–20 条：</b>用案例浏览核对相机、骨骼、静态遮挡与画外返回。RDR2 的源 <code>training_eligible=false</code> 需要先解决原因。</li><li><b>先分组，再切窗：</b>按场景、角色身份和采集批次隔离训练 / 验证 / 测试，避免同一段录像的相邻帧跨集合。</li><li><b>单案例过拟合 A：</b>确认代理变化能控制人物运动，再扩展到多场景。先看重投影与视频对齐，再做生成质量评价。</li><li><b>建立 B 基线：</b>比较保持位置、历史匀速与学习模型。历史引擎状态初始化和仅 RGB 初始化分开报告。</li><li><b>评价画外段与重现：</b>原生时间下的 ADE / FDE、返回位置误差、身份保持；遮挡与画外分别统计。</li></ol></article><article class="panel prose"><h3>训练时必须保留的约定</h3><ul><li><code>points.npz</code>：CP / GTA 为骨骼驱动的 256 个代理点，RDR 为 19 个骨骼点。它们不是跨游戏一一对应的真实表面点。</li><li><code>joints.npz</code>：统一 20 关节 + 根位置 / 速度及掩码。适合作为首个跨游戏监督接口。</li><li>使用 <code>valid &amp; finite</code>；缺失点不补成零坐标。画外但有有效世界坐标的点可以参与动力学监督。</li><li>未来相机若由外部给定，需作为显式条件；若任务要求预测相机，则也要预测。未来实体状态始终受因果边界约束。</li><li>改写轨迹得到新代理后，原 RGB 不再是该轨迹对应的监督。需要重新采集或另行设计无配对目标。</li><li>当前采集更适合运动与画外重现；要学交互、碰撞与行为转移，需要增加相应事件和动作多样性。</li></ul></article></div>
+    <article class="panel recipe-panel"><div class="card-top"><div><h3>导出当前案例的训练窗口</h3><p class="muted small">生成明确的历史 / 目标边界，供本地数据准备脚本读取。</p></div><a href="/download/global/guide" class="text-link">完整训练说明 ↗</a></div><div id="recipe-case" class="recipe-case mono">尚未选择案例</div><div class="recipe-fields"><label>任务<select id="recipe-task"><option value="dynamics">B · 画外动力学</option><option value="renderer">A · 条件渲染</option></select></label><label>起始帧<input id="recipe-start" type="number" min="0" value="0"></label><label>历史截止 t₀<input id="recipe-cutoff" type="number" min="0" value="67"></label><label>目标终帧<input id="recipe-end" type="number" min="1" value="299"></label><label>代理通道<select id="recipe-channel"><option value="control">control</option><option value="actors">actors</option><option value="white">white</option><option value="semantic">semantic</option></select></label><button id="export-recipe" class="primary">导出窗口 JSON ↓</button></div><p id="recipe-result" class="small muted" aria-live="polite">窗口仍需质量复核与数据划分；导出不会开始训练。</p><pre><code>python scripts/prepare_window.py --recipe "你的窗口.json" --out "prepared/sample_001"
+# dynamics 模式输出：student_inputs.npz / supervision.npz / provenance.json
+# student_inputs 只包含历史；future_* 只出现在 supervision 中。</code></pre></article>
+    <article class="panel prose"><h3>直接读取现有帧配对</h3><pre><code>from worldbridge.data import iter_pairs
+import numpy as np
+
+# 在仓库根目录安装本包后运行。
+for pair in iter_pairs(episode_dir, condition="control", stride=2):
+    rgb = pair["rgb"]                 # uint8, H×W×3，已按帧编号配对
+    condition = pair["proxy"]         # uint8, 216×384×3
+    native_time = pair["time_us"]     # 使用真实采样间隔
+    geometric_mask = pair["covered"]  # 代理覆盖，非真实可见性
+
+with np.load(episode_dir / "joints.npz", allow_pickle=False) as z:
+    target_xyz = z["world_xyz"]
+    loss_mask = z["valid"] &amp; np.isfinite(target_xyz).all(axis=-1)
+# 切窗时先划分历史和未来；监督文件不能整体拼到学生输入。</code></pre><p class="small muted">上例是数据入口；完整视频训练还需选择基础模型、确定帧数 / 空间尺寸、条件注入位置、优化器与显存预算。当前网页不声称已经完成这些模型实验。</p></article>
+  </section>
+
+  <section id="page-quality" class="page document-page">
+    <div class="section-head"><p class="eyebrow">DATA / 当前覆盖与验证边界</p><h2 id="quality-title">正在读取本地数据规模。</h2><p>通过转换与数值检查，意味着文件和掩码可以被一致读取；训练价值仍要通过对齐复核与独立测试验证。</p></div>
+    <article class="panel table-panel"><table><thead><tr><th>游戏</th><th>完整案例</th><th>主视角时间步</th><th>当前主要边界</th></tr></thead><tbody id="quality-game-table"></tbody></table></article>
+    <div class="prose-grid"><article class="panel prose"><h3>历史批次验证范围</h3><ul><li>305 个统一帧流、3D 轨迹与有效掩码。</li><li>全部缓冲头部、仿真时间戳与源视频帧数。</li><li>每案例首帧深度、实例 ID 与覆盖约束。</li><li>三游戏重新转换、重放和配对读取接口。</li><li>5 项单元 / GPU 集成测试。</li></ul><p class="small muted">历史网页另测 HTTP 字节范围、逐帧对齐、缓冲查询、窗口导出和因果输入隔离；见仓库 reports 快照。当前接入数据的结构状态由其 batch_validation.json 提供；缺少报告不自动视为通过。</p></article><article class="panel prose"><h3>需要进一步验证</h3><ul><li>当前案例 RGB 与代理逐帧视觉验收。</li><li>相机、几何与真实目标的像素级对齐。</li><li>真实表面、真实深度、像素遮挡：当前代理不提供这些真值。</li><li>画外动力学预测、生成效果与跨场景泛化。</li><li>游戏行为规则恢复与模型训练：当前尚未完成。</li></ul><p class="small muted" id="quality-count-note"></p></article></div>
+    <article class="panel artifact-panel"><div class="card-top"><h3>本地产物</h3><span class="tag">原始数据只读</span></div><div class="artifact-links"><a href="/download/global/code"><strong>统一代码 ZIP ↓</strong><small>适配器、渲染器、运行时、读取器</small></a><a href="/download/global/web_code"><strong>网页代码 ZIP ↓</strong><small>本地服务、前端、窗口准备脚本</small></a><a href="/download/global/index"><strong>配对索引 ↓</strong><small>training_pairs.jsonl</small></a><a href="/download/global/validation"><strong>结构验收 ↓</strong><small>batch_validation.json</small></a><a href="/download/global/report"><strong>处理交付报告 ↓</strong><small>数据规模、转换与限制</small></a><a href="/download/global/guide"><strong>训练使用指南 ↓</strong><small>任务、掩码、切窗与评价</small></a></div><dl id="local-paths" class="local-paths"></dl></article>
+    <article class="panel overview-panel"><div class="card-top"><h3>三游戏代理对照</h3><span class="muted small">RGB / 几何白模 / 动态优先控制</span></div><img src="/overview.jpg" loading="lazy" alt="赛博朋克、GTA5、RDR2 的 RGB 与代理对照"></article>
+  </section>
+</main>
+<footer>WorldBridge · 本地数据研究工作台 <span>统一观测 → 显式状态 → 可检验的动态记忆</span></footer>
+<div id="toast" class="toast" role="status"></div>
+</body>
+</html>

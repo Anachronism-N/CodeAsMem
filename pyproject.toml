@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codeasmem"
+version = "0.1.0"
+description = "Local game-state unification, OpenGL proxies and causal training windows for dynamic video memory"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy", "Pillow", "opencv-python"]
+
+[project.optional-dependencies]
+web = ["fastapi>=0.115", "uvicorn>=0.30", "pydantic>=2"]
+test = ["pytest", "httpx"]
+
+[project.scripts]
+worldbridge = "worldbridge.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["worldbridge*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["gpu: requires Windows WGL and an OpenGL 4.3+ GPU driver"]
+
